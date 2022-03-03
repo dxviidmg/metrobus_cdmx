@@ -1,10 +1,9 @@
-
 from rest_framework.routers import DefaultRouter
-from metrobuses.views import MetrobusViewSet
+from alcaldias.views import AlcaldiaViewSet
 
 
 router = DefaultRouter() 
-router.register('metrobus', MetrobusViewSet, basename='metrobus')
+router.register('alcaldia', AlcaldiaViewSet, basename='alcaldia')
 
 urlpatterns = []
 

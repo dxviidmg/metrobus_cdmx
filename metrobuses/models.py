@@ -68,7 +68,7 @@ class Geolocalizacion(models.Model):
 
 class Metrobus(Geolocalizacion):
     metrobus_id = models.PositiveSmallIntegerField(unique=True)
-    alcaldia = models.ForeignKey(Alcaldia, on_delete=models.SET_NULL, null=True, blank=True)
+    alcaldia = models.ForeignKey(Alcaldia, on_delete=models.SET_NULL, null=True, blank=True, related_name='metrobuses')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
