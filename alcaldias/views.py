@@ -1,4 +1,4 @@
-from alcaldias.models import Estado, Alcaldia 
+from alcaldias.models import State, TownHall 
 from rest_framework import viewsets
 from alcaldias.serializers import AlcaldiaSerializer, AlcaldiaMetrobusSerializer, EstadoSerializer
 from django.shortcuts import get_object_or_404
@@ -6,11 +6,11 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 class EstadoViewSet(viewsets.ModelViewSet):
-    queryset = Estado.objects.all()
+    queryset = State.objects.all()
     serializer_class = EstadoSerializer
 
 class AlcaldiaViewSet(viewsets.ModelViewSet):
-    queryset = Alcaldia.objects.all().order_by('estado', 'nombre')
+    queryset = TownHall.objects.all().order_by('state', 'name')
     serializer_class = AlcaldiaSerializer
 
 
