@@ -15,7 +15,7 @@ class Geolocation(models.Model):
 
     def convert_to_str(self):
         """Return point in text string"""
-        return str(self.latitude) + ', ' + str(self.longitud)
+        return str(self.latitude) + ', ' + str(self.longitude)
 
     def get_location(self):
         """Get location through geopy"""
@@ -89,13 +89,13 @@ class Metrobus(Geolocation):
         if state == None:
             return None
 
-        state, state_created = Estado.objects.get_or_create(nombre=state)
+        state, state_created = State.objects.get_or_create(name=state)
         townhall = self.define_townhall()
         if townhall == None:
             return None
 
-        alcaldia, alcaldia_created = Alcaldia.objects.get_or_create(nombre=townhall, estado=state)
-        self.alcaldia = alcaldia
+        townhall, townhall_created = TownHall.objects.get_or_create(name=townhall, state=state)
+        self.townhall = townhall
         self.save()
 
     def save(self, *args, **kwargs):
