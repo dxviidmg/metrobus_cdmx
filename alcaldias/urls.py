@@ -3,8 +3,8 @@ from alcaldias.views import TownHallViewSet, StateViewSet
 
 
 router = DefaultRouter() 
-router.register('estado', StateViewSet, basename='estado')
-router.register('alcaldia', TownHallViewSet, basename='alcaldia')
+router.register('estado', StateViewSet, basename='state')
+router.register('alcaldia', TownHallViewSet, basename='townhall')
 
 urlpatterns = []
 

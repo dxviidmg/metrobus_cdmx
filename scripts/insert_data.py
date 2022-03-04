@@ -18,6 +18,7 @@ def fix():
     for metrobus in tqdm(metrobuses):
 #        print(metrobus)
         metrobus.update_townhall()
+        metrobus.save()
 
 def run():
 #    insert()

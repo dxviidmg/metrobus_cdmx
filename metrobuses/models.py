@@ -84,6 +84,7 @@ class Metrobus(Geolocation):
         return 'Metrobus ' + str(self.number)
 
     def update_townhall(self):
+#        print('start update_townhall')
         state = self.define_state()
 
         if state == None:
@@ -95,8 +96,10 @@ class Metrobus(Geolocation):
             return None
 
         townhall, townhall_created = TownHall.objects.get_or_create(name=townhall, state=state)
+#        print(townhall)
         self.townhall = townhall
-        self.save()
+#        print('end update_townhall')
+#        self.save()
 
     def save(self, *args, **kwargs):
         if self.__original_latitude != self.latitude or self.__original_longitude != self.longitude:
