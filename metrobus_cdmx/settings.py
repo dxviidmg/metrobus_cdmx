@@ -40,9 +40,12 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'rest_framework',
+    'graphene_django',
+    
     #apps
     'alcaldias',
     'metrobuses',
+    'graphene_schema'
 ]
 
 MIDDLEWARE = [
@@ -124,3 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+GRAPHENE = {
+    "SCHEMA": "graphene_schema.schema"
+}
