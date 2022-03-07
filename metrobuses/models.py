@@ -5,7 +5,7 @@ from geopy.geocoders import Nominatim
 
 class Geolocation(models.Model):
     """
-    Clase abstracta para la geolocalización de un punto
+    Abstract class from Geolocation
     """
     latitude = models.FloatField(default=0)
     longitude = models.FloatField(default=0)

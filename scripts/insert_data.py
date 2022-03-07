@@ -21,5 +21,5 @@ def fix():
         metrobus.save()
 
 def run():
-#    insert()
+    insert()
     fix()
