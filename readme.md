@@ -18,9 +18,17 @@ $ python manage.py migrate
 $ python manage.py runscript insert_data
 ```
 
+## Ejecute las pruebas unitarias
+
+Ejecute el siguiente comando:
+
+```bash
+$ python manage.py test
+```
+
 ## Ejecute la aplicación web Django
 
-Necesita ejecutar el servidor de Django, ejecute el siguiente comando:
+Ejecute el siguiente comando:
 
 ```bash
 $ python manage.py runserver
@@ -28,11 +36,6 @@ $ python manage.py runserver
 
 - Abra su navegador web con la siguiente URL: [http://0.0.0.0:8000/](http://0.0.0.0:8000/) y vea la aplicación web Django.
 
-```bash
-$ python manage.py makemigrations
-$ python manage.py migrate
-$ python manage.py runscript insert_data
-```
 
 ## Peticiones rest
 - Lista de unidades disponibles (http://127.0.0.1:8000/metrobuses/metrobus/)
