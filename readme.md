@@ -17,20 +17,6 @@ $ python manage.py makemigrations
 $ python manage.py migrate
 $ python manage.py runscript insert_data
 ```
-### Crear usuario administrador de Django
-
-Esta aplicación web de Django necesita crear un usuario administrador de Django, para acceder y administrar la interfaz de administrador, ejecute el siguiente comando:
-
-**Sugerencia:** para esta instalación local use al usuario como **admin** y la contraseña como **admin**.
-
-```bash
-$ python manage.py createsuperuser
-Username (leave blank to use 'user'): admin
-Email address: your-user@mail.com
-Password: 
-Password (again): 
-Superuser created successfully.
-```
 
 ## Ejecute la aplicación web Django
 
@@ -42,4 +28,63 @@ $ python manage.py runserver
 
 - Abra su navegador web con la siguiente URL: [http://0.0.0.0:8000/](http://0.0.0.0:8000/) y vea la aplicación web Django.
 
-- Abra su navegador web con la siguiente URL: [http://0.0.0.0:8000/admin/](http://0.0.0.0:8000/admin/) y vea la interfaz de administración de Django, use el usuario **admin** y contraseña **admin**.
+```bash
+$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py runscript insert_data
+```
+
+## Peticiones rest
+- Lista de unidades disponibles (http://127.0.0.1:8000/metrobuses/metrobus/)
+- Unidad por id (http://127.0.0.1:8000/metrobuses/metrobus/1/)
+- Lista de alcaldias (http://127.0.0.1:8000/alcaldias/alcaldia/)
+- Lista de unidades por alcaldia (http://127.0.0.1:8000/alcaldias/alcaldia/1/)
+
+## Peticiones grapqhl
+ - Lista de unidades disponibles
+
+```
+{
+	allMetrobuses {
+  	number
+	} 
+}
+```
+
+- Unidad por id
+
+```
+{
+	metrobus (id: 1) {
+    number
+    latitude
+    longitude
+    townhall {
+      name
+    }
+  }
+}
+```
+
+- Lista de alcaldias
+
+```
+{
+	allTownhalls {
+    name
+  }
+}
+```
+
+- Lista de unidades por alcaldia
+
+```
+{
+  townhall (id: 1) {
+    name
+    
+  metrobuses {
+    number
+  }}
+}
+```
