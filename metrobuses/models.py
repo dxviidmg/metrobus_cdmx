@@ -1,21 +1,25 @@
 from django.db import models
-from alcaldias.models import Estado, Alcaldia
+from alcaldias.models import State, TownHall
 from geopy.geocoders import Nominatim
-from time import sleep
 
 
-class Geolocalizacion(models.Model):
-    altitud = models.FloatField(default=0)
-    longitud = models.FloatField(default=0)
+class Geolocation(models.Model):
+    """
+    Abstract class from Geolocation
+    """
+    latitude = models.FloatField(default=0)
+    longitude = models.FloatField(default=0)
 
     class Meta:
         abstract = True
 
-    def covert_to_point(self):
-        return str(self.altitud) + ', ' + str(self.longitud)
+    def convert_to_str(self):
+        """Return point in text string"""
+        return str(self.latitude) + ', ' + str(self.longitude)
 
-    def get_localizacion(self):
-        geographic_point = self.covert_to_point()
+    def get_location(self):
+        """Get location through geopy"""
+        geographic_point = self.convert_to_str()
         geolocator = Nominatim(user_agent="http")
         try:
             location = geolocator.reverse(geographic_point, timeout=10)
@@ -26,16 +30,17 @@ class Geolocalizacion(models.Model):
         
         return location
 
-    def convert_location_on_list(self):
-        location = self.get_localizacion()
+    def convert_location_to_list(self):
+        """ Convert location to list, this make easy the processing of location data"""
+        location = self.get_location()
         if location == None:
             return []
         
         location = list(location)[0]
         return location.split(', ')
 
-    def define_estado(self):
-        location_list = self.convert_location_on_list()
+    def define_state(self):
+        location_list = self.convert_location_to_list()
         
         if location_list == []:
             return None
@@ -47,54 +52,57 @@ class Geolocalizacion(models.Model):
         else:
             raise ValueError("Estado no reconocido", location_list)
 
-    def define_alcaldia(self):
-        estado = self.define_estado()
-        if estado == None:
+    def define_townhall(self):
+        state = self.define_state()
+        if state == None:
             return None
 
-        location_list = self.convert_location_on_list()
+        location_list = self.convert_location_to_list()
         try:
-            index_referencia = location_list.index(estado)
+            reference_index = location_list.index(state)
         except Exception as e:
             print(e, location_list, self.covert_to_point)
             return None
 
-        index_referencia = index_referencia - 1
-        alcaldia = location_list[index_referencia]
+        reference_index = reference_index - 1
+        townhall = location_list[reference_index]
 
-        return alcaldia
+        return townhall
 
 
 
-class Metrobus(Geolocalizacion):
-    metrobus_id = models.PositiveSmallIntegerField(unique=True)
-    alcaldia = models.ForeignKey(Alcaldia, on_delete=models.SET_NULL, null=True, blank=True)
+class Metrobus(Geolocation):
+    number = models.PositiveSmallIntegerField(unique=True)
+    townhall = models.ForeignKey(TownHall, on_delete=models.SET_NULL, null=True, blank=True, related_name='metrobuses')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__original_altitud = self.altitud
-        self.__original_longitud = self.longitud
+        self.__original_latitude = self.latitude
+        self.__original_longitude = self.longitude
 
     def __str__(self):
-        return 'Metrobus ' + str(self.metrobus_id)
+        return 'Metrobus ' + str(self.number)
 
-    def update_alcaldia(self):
-        estado = self.define_estado()
+    def update_townhall(self):
+#        print('start update_townhall')
+        state = self.define_state()
 
-        if estado == None:
+        if state == None:
             return None
 
-        estado, estado_created = Estado.objects.get_or_create(nombre=estado)
-        alcaldia = self.define_alcaldia()
-        if alcaldia == None:
+        state, state_created = State.objects.get_or_create(name=state)
+        townhall = self.define_townhall()
+        if townhall == None:
             return None
 
-        alcaldia, alcaldia_created = Alcaldia.objects.get_or_create(nombre=alcaldia, estado=estado)
-        self.alcaldia = alcaldia
-        self.save()
+        townhall, townhall_created = TownHall.objects.get_or_create(name=townhall, state=state)
+#        print(townhall)
+        self.townhall = townhall
+#        print('end update_townhall')
+#        self.save()
 
     def save(self, *args, **kwargs):
-        if self.__original_altitud != self.altitud or self.__original_longitud != self.longitud:
-            self.update_alcaldia()
+        if self.__original_latitude != self.latitude or self.__original_longitude != self.longitude:
+            self.update_townhall()
             
         super(Metrobus, self).save(*args, **kwargs)

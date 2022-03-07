@@ -39,9 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_extensions',
+    'rest_framework',
+    'graphene_django',
+    
     #apps
     'alcaldias',
     'metrobuses',
+    'graphene_schema'
 ]
 
 MIDDLEWARE = [
@@ -79,10 +83,14 @@ WSGI_APPLICATION = 'metrobus_cdmx.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+	'default': {
+    	'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    	'NAME': 'metrobus_cdmx',
+    	'USER': 'postgres',
+    	'PASSWORD': 'postgres',
+    	'HOST': 'localhost',
+    	'PORT': '5432',
+	}
 }
 
 
@@ -123,3 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+GRAPHENE = {
+    "SCHEMA": "graphene_schema.schema"
+}
