@@ -2,6 +2,11 @@
 
 Proyecto Django con rest y graphql para mostrar las unidades de metrobus junto con su localización
 
+# Prerequisitos
+python 3.8
+virtualenvwrapper
+Postgres 13
+
 ## Instalación
 
 Esta aplicación web de Django necesita una gran cantidad de paquetes adicionales de Python, por favor ejecute el siguiente comando:
