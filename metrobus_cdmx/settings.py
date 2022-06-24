@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'metrobus_cdmx.wsgi.application'
 DATABASES = {
 	'default': {
     	'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    	'NAME': 'metrobus_cdmx',
+    	'NAME': 'metrobus_cdmx3',
     	'USER': 'postgres',
     	'PASSWORD': 'postgres',
     	'HOST': 'localhost',
