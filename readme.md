@@ -1,8 +1,8 @@
 # Metrobus_cdmx
 
-Analisis del metrobuses y endpoints en rest y graphql para mostrar las unidades de metrobus junto con su localización
+Análisis de datos sobre los metrobuses y desarrollo de endpoints en rest y graphql para mostrar las unidades de metrobus junto con su localización
 
-# Analisis
+# Análisis de datos
 ## Prerequisitos
 python 3.8
 virtualenvwrapper
@@ -15,7 +15,7 @@ Esta aplicación web de Django necesita una gran cantidad de paquetes adicionale
 $ pip install -r requirements.txt
 ```
 
-### Ejcución
+### Ejecución
 
 ```bash
 $ jupyter notebook
