@@ -27,6 +27,7 @@ $ python manage.py migrate
 ```bash
 $ python manage.py runscript insert_data
 ```
+Nota: Este script tarda 2 minutos en ejecutarse
 
 ## Ejecute las pruebas unitarias
 
@@ -46,6 +47,8 @@ $ python manage.py runserver
 
 - Abra su navegador web con la siguiente URL: [http://0.0.0.0:8000/](http://0.0.0.0:8000/) y vea la aplicación web Django.
 
+# Docker
+  - Usa docker y docker compose
 
 ## Peticiones rest
 - Lista de unidades disponibles (http://127.0.0.1:8000/metrobuses/metrobus/)
