@@ -49,6 +49,7 @@ $ python manage.py runserver
 
 # Docker
   - Usa docker y docker compose
+  - Usa DATABASE_HOST=db en .env
 
 ## Peticiones rest
 - Lista de unidades disponibles (http://127.0.0.1:8000/metrobuses/metrobus/)
