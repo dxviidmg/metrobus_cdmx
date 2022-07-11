@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,13 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'hgbd3vhy2-8*55*+3-@n708%yut-x4g-3k4pucv1x=jox9j2i7'
+# SECURITY WARNING: keep the secret key used in production secret
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+DJANGO_ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS")]
+ALLOWED_HOSTS = DJANGO_ALLOWED_HOSTS
 
 
 # Application definition
@@ -82,14 +87,21 @@ WSGI_APPLICATION = 'metrobus_cdmx.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+DATABASE_NAME = os.getenv("DATABASE_NAME")
+DATABASE_USER = os.getenv("DATABASE_USER")
+DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD")
+DATABASE_HOST = os.getenv("DATABASE_HOST")
+DATABASE_PORT = os.getenv("DATABASE_PORT")
+
+
 DATABASES = {
 	'default': {
     	'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    	'NAME': 'metrobus_cdmx',
-    	'USER': 'postgres',
-    	'PASSWORD': 'postgres',
-    	'HOST': 'localhost',
-    	'PORT': '5432',
+    	'NAME': DATABASE_NAME,
+    	'USER': DATABASE_USER,
+    	'PASSWORD': DATABASE_PASSWORD,
+    	'HOST': DATABASE_HOST,
+    	'PORT': DATABASE_PORT,
 	}
 }
 
